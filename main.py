@@ -650,7 +650,7 @@ class App:
         tk.Label(rf, text="Elec. rate ($/hr):", bg=c["card"], fg=c["dim"],
                  font=("Segoe UI", 10)).pack(side="left")
         self.e_rate = In(rf, width=10)
-        self.e_rate.insert(0, "0.12")
+        self.e_rate.insert(0, "0.06")
         self.e_rate.pack(side="left", padx=(6, 0))
 
         Btn(p, "Calculate", c["accent"], hover=c["accent_h"],

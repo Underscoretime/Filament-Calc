@@ -5,7 +5,7 @@
       "name": "Aurapol Red",
       "max_grams": 1000.0,
       "cost_per_kg": 500.0,
-      "currency": "CZK",
+      "currency": "USD",
       "material": "PLA",
       "color": "#ff0000",
       "stock": 700.0
@@ -15,7 +15,7 @@
       "name": "Aurapol Skin",
       "max_grams": 1000.0,
       "cost_per_kg": 600.0,
-      "currency": "CZK",
+      "currency": "USD",
       "material": "PLA",
       "color": "#f7e0c8",
       "stock": 435.0
@@ -25,14 +25,24 @@
       "name": "Aurapol Aquamarine",
       "max_grams": 1000.0,
       "cost_per_kg": 600.0,
-      "currency": "CZK",
+      "currency": "USD",
       "material": "PETG",
       "color": "#001bd5",
       "stock": 300.0
+    },
+    {
+      "id": "b76a275a",
+      "name": "Generic test",
+      "max_grams": 1000.0,
+      "cost_per_kg": 20.0,
+      "currency": "AED",
+      "material": "PLA",
+      "color": "#89b4fa",
+      "stock": 1000.0
     }
   ],
   "settings": {
-    "display_currency": "CZK",
+    "display_currency": "USD",
     "materials": [
       "PLA",
       "ABS",

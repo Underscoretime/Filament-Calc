@@ -31,7 +31,7 @@ All filament data is saved to `filaments.json` in the same directory as the scri
 
 ## Currency
 
-Exchange rates are hardcoded and centered on CZK. 53 currencies supported across Europe, Americas, Asia, Middle East, and Africa. Rates are approximate -- edit `BASE_RATES_CZK` in `main.py` to update them.
+Exchange rates are hardcoded and centered on USD. 53 currencies supported across Europe, Americas, Asia, Middle East, and Africa. Rates are approximate -- edit `BASE_RATES` in `main.py` to update them.
 
 ## License
 

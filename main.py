@@ -6,9 +6,9 @@ import os
 
 DATA_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "filaments.json")
 
-BASE_RATES_CZK = {
-    "CZK": 1,
-    "USD": 23.0,
+BASE_RATES = {
+    "USD": 1,
+    "CZK": 23.0,
     "EUR": 25.0,
     "GBP": 29.0,
     "PLN": 5.7,
@@ -66,7 +66,7 @@ RATES = {}
 for _f in CURRENCIES:
     for _t in CURRENCIES:
         if _f != _t:
-            RATES[f"{_f}_{_t}"] = BASE_RATES_CZK[_t] / BASE_RATES_CZK[_f]
+            RATES[f"{_f}_{_t}"] = BASE_RATES[_t] / BASE_RATES[_f]
 
 DEFAULT_MATERIALS = ["PLA", "ABS", "PETG", "TPU", "Nylon", "PC", "ASA", "PVA", "HIPS"]
 
@@ -497,7 +497,7 @@ class App:
 
         self.filaments = []
         self.materials = list(DEFAULT_MATERIALS)
-        self.disp_cur = tk.StringVar(value="CZK")
+        self.disp_cur = tk.StringVar(value="USD")
         self.edit_id = None
         self._filter_material = None
 
@@ -552,6 +552,7 @@ class App:
         tk.Label(f, text="Currency:", bg=c["card"], fg=c["dim"],
                  font=("Segoe UI", 10)).grid(row=4, column=0, sticky="w", pady=2, padx=(0, 10))
         self.cb_cur = Combo(f, values=CURRENCIES, width=16)
+        self.cb_cur.set("USD")
         self.cb_cur.grid(row=4, column=1, sticky="ew", pady=2)
 
         tk.Label(f, text="Stock (g):", bg=c["card"], fg=c["dim"],
@@ -587,6 +588,7 @@ class App:
         tk.Label(top_row, text="Show in:", bg=c["card"], fg=c["dim"],
                  font=("Segoe UI", 9)).pack(side="left")
         self.cb_disp = Combo(top_row, values=CURRENCIES, width=5)
+        self.cb_disp.on_select(lambda v: self.disp_cur.set(v))
         self.cb_disp.pack(side="left", padx=(4, 0))
         tk.Label(top_row, text="Material:", bg=c["card"], fg=c["dim"],
                  font=("Segoe UI", 9)).pack(side="left", padx=(12, 0))
@@ -648,7 +650,7 @@ class App:
         tk.Label(rf, text="Elec. rate ($/hr):", bg=c["card"], fg=c["dim"],
                  font=("Segoe UI", 10)).pack(side="left")
         self.e_rate = In(rf, width=10)
-        self.e_rate.insert(0, "0.025")
+        self.e_rate.insert(0, "0.12")
         self.e_rate.pack(side="left", padx=(6, 0))
 
         Btn(p, "Calculate", c["accent"], hover=c["accent_h"],
@@ -695,7 +697,8 @@ class App:
                     d = json.load(f)
                 self.filaments = d.get("filaments", [])
                 self.materials = d.get("settings", {}).get("materials", list(DEFAULT_MATERIALS))
-                self.disp_cur.set(d.get("settings", {}).get("display_currency", "CZK"))
+                self.disp_cur.set(d.get("settings", {}).get("display_currency", "USD"))
+                self.cb_disp.set(self.disp_cur.get())
             except (json.JSONDecodeError, KeyError):
                 pass
 
@@ -776,7 +779,7 @@ class App:
             })
         for e in (self.e_name, self.e_grams, self.e_cost, self.e_stock):
             e.delete(0, tk.END)
-        self.cb_cur.set("CZK")
+        self.cb_cur.set("USD")
         self.cb_mat.set(self.materials[0] if self.materials else "")
         self.color_btn.set_color("#89b4fa")
         self._save()
@@ -788,7 +791,7 @@ class App:
         self.b_cancel.pack_forget()
         for e in (self.e_name, self.e_grams, self.e_cost, self.e_stock):
             e.delete(0, tk.END)
-        self.cb_cur.set("CZK")
+        self.cb_cur.set("USD")
         self.cb_mat.set(self.materials[0] if self.materials else "")
         self.color_btn.set_color("#89b4fa")
 
